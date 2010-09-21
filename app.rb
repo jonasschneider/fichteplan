@@ -1,20 +1,20 @@
-require "rubygems"
-require "nokogiri"
-
 require 'net/https'
+
+require 'rubygems'
+require 'nokogiri'
 require 'sinatra'
 require 'haml'
 
 
+# UTF-8
 $KCODE = 'u' if RUBY_VERSION < '1.9'
-
 before do
   content_type :html, 'charset' => 'utf-8'
 end
 
+
 class Fichte
   class Change < ::Struct.new(:id, :type, :date, :lesson, :old_subject, :new_subject, :old_teacher, :new_teacher, :form, :form2, :old_room, :new_room, :statistic, :moved_from, :moved_to, :unt_text, :text, :dropped)
-      
   end
   
   def self.fetch
