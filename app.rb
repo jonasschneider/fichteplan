@@ -16,11 +16,14 @@ end
 
 class Fichte
   class Change < ::Struct.new(:id, :type_text, :date, :lesson, :old_subject, :new_subject, :old_teacher, :new_teacher, :form, :form2, :old_room, :new_room, :statistic, :moved_from, :moved_to, :unt_text, :text, :dropped)
+    
+    class AssertionFailed < Exception; end
+    
     def assert(condition)
-      raise "assertion not met" unless condition
+      raise AssertionFailed unless condition
     end
+    
     def type
-      
       case type_text
       when "Entfall"
         assert new_room == '---'
@@ -43,8 +46,10 @@ class Fichte
       when "Tausch"
         :tausch
       else
-        "bitter"            
+        :dunno
       end
+    rescue AssertionFailed
+      :dunno
     end
   end
   
