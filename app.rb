@@ -15,7 +15,37 @@ end
 
 
 class Fichte
-  class Change < ::Struct.new(:id, :type, :date, :lesson, :old_subject, :new_subject, :old_teacher, :new_teacher, :form, :form2, :old_room, :new_room, :statistic, :moved_from, :moved_to, :unt_text, :text, :dropped)
+  class Change < ::Struct.new(:id, :type_text, :date, :lesson, :old_subject, :new_subject, :old_teacher, :new_teacher, :form, :form2, :old_room, :new_room, :statistic, :moved_from, :moved_to, :unt_text, :text, :dropped)
+    def assert(condition)
+      raise "assertion not met" unless condition
+    end
+    def type
+      
+      case type_text
+      when "Entfall"
+        assert new_room == '---'
+        assert new_subject == '---'
+        assert new_teacher == '---'
+        :entfall
+      when "Raum-Vtr."
+        assert new_room != old_room
+        assert new_subject == old_subject
+        assert new_teacher == old_teacher
+        :raum
+      when "Vertretung"
+        assert new_teacher != old_teacher
+        :vertretung
+      when "Betreuung"
+        :betreuung
+      when "Verlegung"
+        assert !moved_from.empty? || !moved_to.empty?
+        :verlegung
+      when "Tausch"
+        :tausch
+      else
+        "bitter"            
+      end
+    end
   end
   
   def self.fetch

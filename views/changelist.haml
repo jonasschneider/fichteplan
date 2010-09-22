@@ -3,28 +3,30 @@
     %span.lesson== #{change.lesson}. Stunde
     - unless defined? skip_old
       %span.info== (#{change.old_subject} bei #{change.old_teacher})
-    - if change.type == "Entfall"
+    
+    - case change.type
+    - when :entfall
       %strong.change entfällt
-    - elsif change.type == "Raum-Vtr."
-      in
+    
+    - when :raum
+      in Raum
       %strong.change= change.new_room
-      statt in
-      %s= change.old_room
-    - elsif change.type == "Vertretung"
+      
+    - when :vertretung
       vertreten durch
       %strong.change
         = change.new_teacher
         - if change.new_room != change.old_room
           == in #{change.new_room}
       
-    - elsif change.type == "Betreuung"
+    - when :betreuung
       betreut durch
       %strong.change
         = change.new_teacher
         - if change.new_room != change.old_room
           == in #{change.new_room}
       
-    - elsif change.type == "Verlegung"
+    - when :verlegung
       wird zu
       %strong.change
         == #{change.new_subject} bei #{change.new_teacher} 
@@ -32,12 +34,14 @@
           == in #{change.new_room}
       - if change.text.empty? && !change.moved_from.empty?
         == (verlegt von #{change.moved_from})
-    - elsif change.type == "Tausch"
+    
+    - when :tausch
       getauscht mit
       %strong.change
         == #{change.new_subject} bei #{change.new_teacher} 
         - if change.new_room != change.old_room
           == in #{change.new_room}
+    
     - else
       Änderung nicht erkannt!
       =h change.inspect
