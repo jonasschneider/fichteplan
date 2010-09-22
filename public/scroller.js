@@ -13,7 +13,5 @@ function scroll() {
     }
     old_offset++;
   }
-  $("#info").text(old_offset)
-    
 }
 window.setInterval(scroll, 2)

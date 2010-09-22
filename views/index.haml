@@ -1,5 +1,4 @@
 %script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" }
-#info{:style => "position:fixed;top:10px;left:10px"} lol
 %script{ :src => "scroller.js" }
 - @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
   %h1== Vertretungsplan #{date}
