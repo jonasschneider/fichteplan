@@ -1,4 +1,6 @@
 old_offset = -600;
+resume_timer = null;
+scroll_interval = null;
 
 function scroll() {
   if(old_offset >= 0) {// scrolling
@@ -15,4 +17,20 @@ function scroll() {
     old_offset++;
   }
 }
-window.setInterval(scroll, 2)
+
+window.onmousemove = function() {
+  if(scroll_interval) {
+    window.clearInterval(scroll_interval)
+    scroll_interval = null;
+  }
+  if(!resume_timer)
+    resume_timer = window.setTimeout(start, 10000)
+}
+
+function start() {
+  resume_timer = null;
+  if(!scroll_interval)
+    scroll_interval = window.setInterval(scroll, 2)
+}
+
+window.setTimeout(start, 10000)
