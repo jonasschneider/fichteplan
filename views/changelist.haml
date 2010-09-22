@@ -12,7 +12,17 @@
       %s= change.old_room
     - elsif change.type == "Vertretung"
       vertreten durch
-      = change.new_teacher
+      %strong.change
+        = change.new_teacher
+        - if change.new_room != change.old_room
+          == in #{change.new_room}
+      
+    - elsif change.type == "Betreuung"
+      betreut durch
+      %strong.change
+        = change.new_teacher
+        - if change.new_room != change.old_room
+          == in #{change.new_room}
       
     - elsif change.type == "Verlegung"
       wird zu
