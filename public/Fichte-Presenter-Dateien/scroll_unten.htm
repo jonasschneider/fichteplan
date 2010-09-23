@@ -1,0 +1,88 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+<link rel="stylesheet" href="scroll_unten_data/scroll.css" type="text/css">
+</head><body>
+<div id="laufband">
+      <table class="borderwhite">
+      <tbody><tr><td>
+      <script type="text/javascript">
+
+          var marqueewidth=970
+          var marqueeheight=58
+          var marqueespeed=4
+          var marqueebgcolor="#444;"
+          var pauseit=1
+          var marqueecontent='';
+
+          var inhalt=' +++ das Anzeigesystem des Fichte-Gymnasiums +++ '
+
+
+            marqueecontent='<SPAN style="font-size:40pt;white-space:nowrap"> '+inhalt+' <\/SPAN>'
+           marqueespeed=(document.all)? marqueespeed : Math.max(1, marqueespeed-1)
+           var copyspeed=marqueespeed
+           var pausespeed=(pauseit==0)? copyspeed: 0
+           var iedom=document.all||document.getElementById
+           if (iedom)
+           document.write('<span id="temp" style="font-size:40pt;">'+marqueecontent+'<\/span>')
+           var actualwidth=''
+           var cross_marquee, ns_marquee
+
+           function populate(){
+
+           if (iedom){
+           cross_marquee=document.getElementById? document.getElementById("iemarquee") : document.all.iemarquee
+           cross_marquee.style.left=marqueewidth+8
+           cross_marquee.innerHTML=marqueecontent
+           actualwidth=document.all? cross_marquee.offsetWidth : document.getElementById("temp").offsetWidth
+           }
+           else if (document.layers){
+           ns_marquee=document.ns_marquee.document.ns_marquee2
+           ns_marquee.left=marqueewidth+8
+           ns_marquee.document.write(marqueecontent)
+           ns_marquee.document.close()
+           actualwidth=ns_marquee.document.width
+           }
+           lefttime=setInterval("scrollmarquee()",20)
+           }
+           window.onload=populate
+
+           function scrollmarquee(){
+
+           if (iedom){
+           if (parseInt(cross_marquee.style.left)>(actualwidth*(-1)+8))
+           cross_marquee.style.left=parseInt(cross_marquee.style.left)-copyspeed
+           else
+           cross_marquee.style.left=marqueewidth+8
+
+           }
+           else if (document.layers){
+           if (ns_marquee.left>(actualwidth*(-1)+8))
+           ns_marquee.left-=copyspeed
+           else
+           ns_marquee.left=marqueewidth+8
+           }
+           }
+
+           if (iedom||document.layers){
+          document.write('<div style="text-align:center"><table style="border:none;" cellspacing="0" cellpadding="0"><td style="color:white;font-weight:bold;">')
+           if (iedom){
+          document.write('<div style="position:relative;width:'+marqueewidth+';height:'+marqueeheight+';overflow:hidden"><div style="position:absolute;width:'+marqueewidth+';height:'+marqueeheight+';background-color:'+marqueebgcolor+'" onMouseover="copyspeed=pausespeed" onMouseout="copyspeed=marqueespeed"><div id="iemarquee" style="position:absolute;left:0;top:0"><\/div><\/div><\/div>')
+           }
+          else if (document.layers){
+          document.write('<ilayer style="width:'+marqueewidth+';height:'+marqueeheight+'" name="ns_marquee" bgColor='+marqueebgcolor+'><layer name="ns_marquee2" left=0 top=0 onMouseover="copyspeed=pausespeed" onMouseout="copyspeed=marqueespeed"><\/layer><\/ilayer>')
+          }
+          document.write('<\/td><\/tr><\/table><\/div>')
+          }
+          </script><span id="temp" style="font-size: 40pt;"></span><div style="text-align: center;"><table style="border: medium none;" cellpadding="0" cellspacing="0"><tbody><tr><td style="color: white; font-weight: bold;"><div style="position: relative; width: 970px; height: 58px; overflow: hidden;"><div style="position: absolute; width: 970px; height: 58px; background-color: rgb(68, 68, 68);" onmouseover="copyspeed=pausespeed" onmouseout="copyspeed=marqueespeed"><div id="iemarquee" style="position: absolute; left: -870px; top: 0pt;"><span style="font-size: 40pt; white-space: nowrap;">  </span></div></div></div></td></tr></tbody></table></div>
+	  </td>
+	  </tr>
+	  </tbody></table>
+           </div>
+
+	  <br>
+          <br>
+
+
+
+</body></html>
