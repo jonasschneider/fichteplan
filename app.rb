@@ -54,41 +54,52 @@ class Fichte
   end
   
   def self.fetch
-    base = 'https://www.fichteportfolio.de/anzeige/'
-    next_page = 'subst_001.htm'
-    done = %w()
-    
-    changes = [] 
-    while !next_page.nil?
-      puts "fetching #{next_page}"
-      url = URI.parse base + next_page
+    if ENV["LOCAL"]
+      self.extract(File.read("subst_001.htm"))
+    else
       
-      done << next_page
-      next_page = nil
+      base = 'https://www.fichteportfolio.de/anzeige/'
+      next_page = 'subst_001.htm'
+      done = %w()
       
-      
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      
-      request = Net::HTTP::Get.new(url.path)
-      response = http.request(request)
-      
-      
-      doc = Nokogiri::HTML(response.body)
-      
-      if next_page_link = doc.css("meta[http-equiv=\"refresh\"]").first
-        next_page_name = next_page_link['content'].gsub('9; URL=', '')
-        next_page = next_page_name unless done.include? next_page_name
+      changes = [] 
+      while !next_page.nil?
+        puts "fetching #{next_page}"
+        url = URI.parse base + next_page
+        
+        done << next_page
+        next_page = nil
+        
+        
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        
+        request = Net::HTTP::Get.new(url.path)
+        response = http.request(request)
+        
+        changes << self.extract(response.body)
+        
+        
       end
       
+      changes.flatten
+    end
+  end
+  
+  def self.extract(html)
+    doc = Nokogiri::HTML(html)
       
-      changes << doc.css("tr:not(:first-child)").map do |row|
-        Change.new *row.css("td").map{|c|c.text.gsub("\302\240", "")}[0..16]
-      end
+  
+    if next_page_link = doc.css("meta[http-equiv=\"refresh\"]").first
+      next_page_name = next_page_link['content'].gsub('9; URL=', '')
+      next_page = next_page_name unless done.include? next_page_name
     end
     
-    changes.flatten
+    
+    doc.css("tr:not(:first-child)").map do |row|
+      Change.new *row.css("td").map{|c|c.text.gsub("\302\240", "")}[0..16]
+    end
   end
 end
 
