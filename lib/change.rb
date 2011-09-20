@@ -1,52 +1,32 @@
-module Fichte
-end
+require 'fichte'
 
 class Fichte::Change
-  attr_reader :num, :stunde, :altes_fach
+  attr_accessor :num, :stunde, :altes_fach, :neues_fach, :vertreter, :raum, :klasse, :detail
   
   def initialize params
     params.each do |k, v|
-      instance_variable_set "@#{k}", v
+      send "#{k}=", v
     end
   end
   
-  class AssertionFailed < Exception; end
-  
-  def assert(condition)
-    raise AssertionFailed unless condition
-  end
   
   def text
-    "#{stunde}. Stunde (#{altes_fach}) entfällt"
+    action = case type
+      when :entfall
+        "entfällt"
+      when :vertretung
+         "vertreten durch #{vertreter} in Raum #{raum}"
+      end
+    "#{stunde}. Stunde (#{altes_fach}) #{action}#{detail && " - #{detail}"}"
   end
   
   def type
-    return :entfall
-    case type_text
-    when "Entfall"
-      assert new_room == '---'
-      assert new_subject == '---'
-      assert new_teacher == '---'
-      :entfall
-    when "Raum-Vtr."
-      assert new_room != old_room
-      assert new_subject == old_subject
-      assert new_teacher == old_teacher
-      :raum
-    when "Vertretung"
-      assert new_teacher != old_teacher
-      :vertretung
-    when "Betreuung"
-      :betreuung
-    when "Verlegung"
-      assert !moved_from.empty? || !moved_to.empty?
-      :verlegung
-    when "Tausch"
-      :tausch
+    if raum == '---' && neues_fach == '---' && vertreter == '---'
+      return :entfall
+    elsif raum != '---' && neues_fach != '---' && vertreter != '---'
+      return :vertretung
     else
-      :dunno
+      return :fail
     end
-  rescue AssertionFailed
-    :dunno
   end
 end
