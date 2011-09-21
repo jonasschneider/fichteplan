@@ -39,7 +39,14 @@ helpers do
       end
     end
     
-    @changes.sort_by! {|c| [-c.date.to_i, c.stunde]}
+    
+    if params[:filter].kind_of? Array
+      @changes.select! { |c| params[:filter].include? c.klasse }
+    elsif params[:filter].kind_of? String
+      @changes.select! { |c| c.klasse == params[:filter] }
+    end
+    
+    @changes = @changes.sort_by {|c| [-c.date.to_i, c.stunde]}
     
   end
   
@@ -65,12 +72,6 @@ end
 
 get '/changes.rss' do
   fetch_changes!
-  puts params[:klasse].inspect
-  if params[:klasse].kind_of? Array
-    @changes.select! { |c| params[:klasse].include? c.klasse }
-  elsif params[:klasse].kind_of? String
-    @changes.select! { |c| c.klasse == params[:klasse] }
-  end
   
   builder File.read(File.join(File.dirname(__FILE__), "views", "rss.builder"))
 end
