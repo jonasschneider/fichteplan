@@ -34,6 +34,16 @@ get '/stylesheets/screen.css' do
   sass File.read(File.join(File.dirname(__FILE__), "views", "style.sass"))
 end
 
+get '/' do
+  begin
+    @changes = Fichte::Fetcher.run!
+  rescue Timeout::Error
+    haml "%h1 Timeout. Schulserver down?", :layout => view("layout")
+  else
+    haml view("index"), :layout => view("layout")
+  end
+end
+
 get '/dry' do
   require 'fakeweb'
   
