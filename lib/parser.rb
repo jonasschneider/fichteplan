@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'fichte'
+require 'change'
 
 class Fichte::Parser
   def initialize data = ''
@@ -22,13 +23,27 @@ class Fichte::Parser
   end
   
   def row_to_params row
-    keys = %w(num stunde neues_fach vertretung raum detail altes_fach klasse).map{|v|v.to_sym}
+    keys = %w(num stunde neues_fach vertreter raum detail altes_fach klasse).map{|v|v.to_sym}
     params = {}
     raise if row.length != keys.length
     row.each_with_index do |val, i|
-      params[keys[i]] = val.match(/^\d+$/) ? val.to_i : val
+      params[keys[i]] = val && val.match(/^\d+$/) ? val.to_i : val
     end
     params
+  end
+  
+  def split_forms changes
+    changes.map do |change|
+      if change[:klasse].match(", ")
+        change[:klasse].split(", ").map{|k| x=change.dup; x[:klasse] = k; x}
+      else
+        change
+      end
+    end.flatten
+  end
+  
+  def changes
+    split_forms(rows.map{|r| row_to_params r }).map{|p| Fichte::Change.new p }
   end
   
   def self.fetch
