@@ -39,7 +39,6 @@ helpers do
       end
     end
     
-    
     if params[:filter].kind_of? Array
       @changes.select! { |c| params[:filter].include? c.klasse }
     elsif params[:filter].kind_of? String
