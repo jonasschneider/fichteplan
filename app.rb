@@ -34,17 +34,6 @@ get '/stylesheets/screen.css' do
   sass File.read(File.join(File.dirname(__FILE__), "views", "style.sass"))
 end
 
-get '/' do
-  begin
-    @changes = Fichte::Fetcher.run!
-  rescue Timeout::Error
-    haml "%h1 Timeout. Schulserver down?", :layout => view("layout")
-  else
-    haml view("index"), :layout => view("layout")
-  end
-  
-end
-
 get '/dry' do
   require 'fakeweb'
   
@@ -54,5 +43,16 @@ get '/dry' do
   FakeWeb.clean_registry
   
   haml view("index"), :layout => view("layout")
+end
+
+get '/dry.json' do
+  require 'fakeweb'
+  
+  FakeWeb.register_uri(:get, "https://www.fichteportfolio.de/anzeige/subst_001.htm", :body => File.read(File.join(File.dirname(__FILE__), "spec", "fixtures", "parsethis.html")))
+  FakeWeb.register_uri(:get, "https://www.fichteportfolio.de/anzeige/subst_002.htm", :body => File.read(File.join(File.dirname(__FILE__), "spec", "fixtures", "parsethis2.html")))
+  @changes = Fichte::Fetcher.run!
+  FakeWeb.clean_registry
+  
+  @changes.to_json
 end
 

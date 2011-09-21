@@ -10,12 +10,12 @@ class Fichte::Change
     end
   end
   
-  def to_json
+  def to_json *a
     dataz = {}
     instance_variables.each do |ivar|
       dataz[ivar.to_s.slice(1, 100)] = instance_variable_get ivar
     end
-    dataz.to_json
+    dataz.to_json(*a)
   end
   
   def stunde
