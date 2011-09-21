@@ -11,6 +11,18 @@ describe 'Change' do
     end
   end
   
+  describe '#kursstufe?' do
+    it 'can be false' do
+      c = Fichte::Change.new :klasse => "08c"
+      c.kursstufe?.should == false
+    end
+    
+    it 'can be true' do
+      c = Fichte::Change.new :klasse => "K2"
+      c.kursstufe?.should == true
+    end
+  end
+  
   describe '#klasse' do
     it 'returns klasse for normal' do
       c = Fichte::Change.new :klasse => "08c"

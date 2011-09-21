@@ -2,15 +2,8 @@
 %script{ :src => "scroller.js" }
 - @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
   %h1== Vertretungsplan #{date}
-  - changes_for_day.group_by{|c|c.form}.sort.each do |form, changes_for_form|
+  - changes_for_day.group_by{|c|c.klasse}.sort.each do |klasse, changes_for_klasse|
     .changes
-      %h2= form
-      
-      - if form.match /K\d+/
-        - changes_for_form.group_by{|c|"#{c.old_subject} bei #{c.old_teacher}"}.sort.each do |course, changes_for_course|
-          %h3= course
-          %ul
-            = partial :changelist, :locals => { :changes => changes_for_course, :skip_old => true }
-      - else
-        %ul
-          = partial :changelist, :locals => { :changes => changes_for_form }
+      %h2= klasse
+      %ul
+        = partial :changelist, :locals => { :changes => changes_for_klasse }

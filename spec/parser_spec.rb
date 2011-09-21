@@ -9,8 +9,22 @@ describe 'Parser' do
   end
   
   describe '#row_to_params' do
-    p = Fichte::Parser.new
-    p.row_to_params(["254", "5", "F2", "JÖR", "206", "statt Do. 2. Std", "M", "08c"]).should == { :num => 254, :stunde => 5, :neues_fach => "F2", :vertreter => "JÖR", :raum => 206, :detail => "statt Do. 2. Std", :altes_fach => "M", :klasse => "08c"}
+    p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "parsethis.html"))
+    p.row_to_params(["254", "5", "F2", "JÖR", "206", "statt Do. 2. Std", "M", "08c"]).should == { :num => 254, :stunde => 5, :neues_fach => "F2", :vertreter => "JÖR", :raum => 206, :detail => "statt Do. 2. Std", :altes_fach => "M", :klasse => "08c", :date => "21.9.2011" }
+  end
+  
+  describe '#next_page_name' do
+    it 'works' do
+      p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "parsethis.html"))
+      p.next_page_name.should == 'subst_002.htm'
+    end
+  end
+  
+  describe '#date' do
+    it 'fetches date' do
+      p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "parsethis.html"))
+      p.date.should == "21.9.2011"
+    end
   end
   
   describe '#split_forms' do

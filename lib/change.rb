@@ -2,7 +2,7 @@ require 'fichte'
 require 'json'
 
 class Fichte::Change
-  attr_accessor :num, :stunde, :altes_fach, :neues_fach, :vertreter, :raum, :klasse, :detail
+  attr_accessor :num, :stunde, :altes_fach, :neues_fach, :vertreter, :raum, :klasse, :detail, :date
   
   def initialize params
     params.each do |k, v|
@@ -26,8 +26,12 @@ class Fichte::Change
     end
   end
   
+  def kursstufe?
+    @klasse.match(/^K\d+$/) != nil
+  end
+  
   def klasse
-    if @klasse.match /^K\d+$/
+    if kursstufe?
       "#{@klasse}-#{@altes_fach}"
     else
       @klasse
@@ -43,7 +47,7 @@ class Fichte::Change
       when :tausch
          "getauscht mit #{neues_fach} bei #{vertreter} in Raum #{raum}"
       end
-    "#{stunde} Stunde (#{altes_fach}) #{action}#{detail && " - #{detail}"}"
+    "#{stunde} Stunde #{!kursstufe? ? "(#{altes_fach}) " : ""}#{action}#{detail && " - #{detail}"}"
   end
   
   def type
