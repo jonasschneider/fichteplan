@@ -2,3 +2,4 @@ nokogiri
 sinatra
 haml
 fakeweb
+builder
