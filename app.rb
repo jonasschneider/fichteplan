@@ -8,6 +8,7 @@ require 'sass'
 
 require 'change'
 require 'parser'
+require 'fetcher'
 
 # UTF-8
 $KCODE = 'u' if RUBY_VERSION < '1.9'
@@ -34,7 +35,24 @@ get '/stylesheets/screen.css' do
 end
 
 get '/' do
-  p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "spec", "fixtures", "parsethis.html"))
-  @changes = p.changes
+  begin
+    @changes = Fichte::Fetcher.run!
+  rescue Timeout::Error
+    haml "%h1 Timeout. Schulserver down?", :layout => view("layout")
+  else
+    haml view("index"), :layout => view("layout")
+  end
+  
+end
+
+get '/dry' do
+  require 'fakeweb'
+  
+  FakeWeb.register_uri(:get, "https://www.fichteportfolio.de/anzeige/subst_001.htm", :body => File.read(File.join(File.dirname(__FILE__), "spec", "fixtures", "parsethis.html")))
+  FakeWeb.register_uri(:get, "https://www.fichteportfolio.de/anzeige/subst_002.htm", :body => File.read(File.join(File.dirname(__FILE__), "spec", "fixtures", "parsethis2.html")))
+  @changes = Fichte::Fetcher.run!
+  FakeWeb.clean_registry
+  
   haml view("index"), :layout => view("layout")
 end
+

@@ -22,6 +22,8 @@ class Fichte::Fetcher
         http = Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        http.open_timeout = 5
+        http.read_timeout = 10
 
         request = Net::HTTP::Get.new(url.path)
         response = http.request(request)
