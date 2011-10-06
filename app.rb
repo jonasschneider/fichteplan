@@ -1,12 +1,5 @@
-require 'net/https'
-
-require 'rubygems'
-require 'nokogiri'
-require 'sinatra'
-require 'haml'
-require 'sass'
-require 'dalli'
-require 'builder'
+require "bundler/setup"
+Bundler.require :default
 
 require 'change'
 require 'parser'
