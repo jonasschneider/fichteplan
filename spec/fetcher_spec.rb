@@ -10,6 +10,6 @@ describe 'Fetcher' do
     
     c = Fichte::Fetcher.run!
     c.group_by{|c|c.date}.length.should == 2
-    c.length.should == 50
+    c.length.should == 51
   end
 end
