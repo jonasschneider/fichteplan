@@ -5,8 +5,8 @@ require 'change'
 require 'parser'
 require 'fetcher'
 
-fork do
-  exec "ruby fetcher.rb"
+Thread.new do
+  %x(ruby fetcher.rb)
 end
 
 
