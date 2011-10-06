@@ -1,0 +1,31 @@
+%h1 HILFE!
+%a{ :href => '/' } Zurück
+
+%p Du musst nicht immer den Plan für alle Klassen anzeigen lassen. Du kannst die Anzeige auf deine Klasse beschränken.
+
+%hr
+%p
+  %ul
+    %li <strong>Wenn du z.B. in der 8c bist,</strong> schreib unten <strong>08c</strong>.
+    %li <strong>Wenn du in der Kursstufe bist,</strong> schreib entweder <strong>K1</strong> oder <strong>K2</strong> (für Faule), oder:
+    %li schreib deine Kurse so aus: <strong>K2-2Inf2,K2-4Bi2</strong> (Kx-Kursname, hier Info und Bio)
+
+%hr
+
+%p
+  %form{ :action => '/' }
+    %input{ :name => 'filter', :placeholder => 'Hier Klasse eingeben' }
+    %input{ :type => :submit, :value => 'Anzeigen' }
+
+%hr
+
+%p
+  %img{ :src => "http://wdi.umich.edu/site_resources/images/rss-icon.png/image", :width => 128, :style => "float: left; margin: 0 20px"}
+  Du musst auch nicht immer wieder auf die Seite zurückkommen, sondern kannst einen <strong>RSS-Feed</strong> abonnieren. Dazu musst du, wenn du fertig bist und nur noch die Einträge, die du sehen willst, angezeigt werden, in deinem Browser auf ein Symbol, das so ähnlich aussehen wird wie hier links klicken. <strong>Du kannst dir auch E-Mails schicken lassen</strong>, trage dazu die Addresse <em>zum Feed (!)</em> auf einer seite wie
+  %a{ :href => "http://www.feedmyinbox.com/" } www.feedmyinbox.com
+  ein. Dann bekommst du neue Einträge automatisch per Mail.
+
+
+%hr
+
+%p Fragen? Anregungen? Mail an <a href="mailto:js.sokrates@gmail.com">Jonas</a>!

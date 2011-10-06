@@ -30,6 +30,10 @@ class Fichte::Change
     @klasse.match(/^K\d+$/) != nil
   end
   
+  def base_klasse
+    @klasse
+  end
+  
   def klasse
     if kursstufe?
       "#{@klasse}-#{@altes_fach}"

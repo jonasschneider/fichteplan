@@ -1,8 +1,17 @@
 %html
   %head
     %title Vertretungsplan
-    %link{:rel => 'stylesheet', 'href' => 'stylesheets/screen.css', 'media' => 'screen'}/
+    %link{:rel => 'stylesheet', 'href' => 'stylesheets/screen.css', 'media' => 'screen'}
+    %link{ :rel => 'alternate', :title => "RSS#{params[:filter] ? " gefiltert nach #{params[:filter]}" : ""}", :href => "/changes.rss#{params[:filter] ? "?filter=#{params[:filter]}" : ""}", :type => 'application/rss+xml' }
   %body
     #container
+      #meta
+        == Letztes Update: #{@last_updated.strftime("%d.%m.%Y %H:%M")}
+        %br/
+        - if params[:filter]
+          %strong== gefiltert nach #{params[:filter]}
+          —
+        %a{ :href => '/help' } Hilfe!
       = yield
-      %em Prototyp von Jonas Schneider, 2011
+      %p
+        %em Prototyp von Jonas Schneider, 2011
