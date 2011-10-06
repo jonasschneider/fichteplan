@@ -5,6 +5,11 @@ require 'change'
 require 'parser'
 require 'fetcher'
 
+fork do
+  exec "ruby fetcher.rb"
+end
+
+
 # UTF-8
 $KCODE = 'u' if RUBY_VERSION < '1.9'
 before do
