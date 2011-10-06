@@ -11,35 +11,6 @@ before do
   content_type :html, 'charset' => 'utf-8'
 end
 
-
-def fetch_changes!
-  begin
-    c = Fichte::Fetcher.run!
-  rescue Timeout::Error
-    puts "t/o"
-  else
-    settings.cache.set 'changes', Marshal.dump(c)
-    settings.cache.set 'changes_lastupdate', Time.new.to_i
-  end
-end
-
-
-Thread.new do
-  loop do
-    begin
-      puts "fetching"
-      fetch_changes!
-      puts "done"
-      
-    rescue Exception => e
-      puts e.inspect
-    end
-    
-    sleep 60
-  end
-end
-
-
 helpers do
   include Rack::Utils
   alias_method :h, :escape_html
@@ -63,7 +34,7 @@ helpers do
     
     @changes = @changes.sort_by {|c| [-c.date.to_i, c.stunde]}
     
-    @last_updated = Time.at settings.cache.get 'changes_lastupdate'
+    @last_updated = Time.at(settings.cache.get 'changes_lastupdate').getlocal("+02:00")
   end
   
   # Usage: partial :foo
