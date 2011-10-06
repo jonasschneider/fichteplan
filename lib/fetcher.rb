@@ -18,8 +18,8 @@ class Fichte::Fetcher
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      http.open_timeout = 5
-      http.read_timeout = 10
+      http.open_timeout = 10
+      http.read_timeout = 15
 
       request = Net::HTTP::Get.new(url.path)
       response = http.request(request)
@@ -29,7 +29,6 @@ class Fichte::Fetcher
       next_page = p.next_page_name unless done.include? p.next_page_name
       
       changes << p.changes
-
     end
 
     changes.flatten

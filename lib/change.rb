@@ -34,7 +34,7 @@ class Fichte::Change
     if kursstufe?
       "#{@klasse}-#{@altes_fach}"
     else
-      @klasse
+      @klasse.gsub /[\(\)]/, ''
     end
   end
   

@@ -29,9 +29,14 @@ describe 'Change' do
       c.klasse.should == "08c"
     end
     
-    it 'returns klasse for normal' do
+    it 'returns klasse-fach bei kursstufe' do
       c = Fichte::Change.new :klasse => "K2", :altes_fach => "4E2"
       c.klasse.should == "K2-4E2"
+    end
+    
+    it 'normalizes (08c)' do
+      c = Fichte::Change.new :klasse => "(08c)"
+      c.klasse.should == "08c"
     end
   end
   
