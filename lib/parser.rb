@@ -9,7 +9,7 @@ class Fichte::Parser
   end
   
   def rows
-    @doc.css("tr:not(:first-child)").map do |row|
+    @doc.css("tr.list:not(:first-child)").map do |row|
       row.css("td").map do |cell|
         txt = cell.text.gsub("\302\240", "")
         if txt.empty? || txt == '---'
@@ -24,12 +24,16 @@ class Fichte::Parser
   def row_to_params row
     keys = %w(num stunde neues_fach vertreter raum detail altes_fach klasse).map{|v|v.to_sym}
     params = {}
-    raise if row.length != keys.length
+    raise "Row length doesn't match (expected #{keys.length}, got #{row.length})" if row.length != keys.length
     row.each_with_index do |val, i|
       params[keys[i]] = val && val.match(/^\d+$/) ? val.to_i : val
     end
     params[:date] = date
-    params
+    if params[:klasse].nil?
+      nil
+    else
+      params
+    end
   end
   
   def split_forms changes
@@ -43,7 +47,7 @@ class Fichte::Parser
   end
   
   def changes
-    split_forms(rows.map{|r| row_to_params r }).map{|p| Fichte::Change.new p }
+    split_forms(rows.map{|r| row_to_params r }.compact).map{|p| Fichte::Change.new p }
   end
   
   def date

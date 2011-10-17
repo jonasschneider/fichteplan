@@ -29,6 +29,8 @@ loop do
     
   rescue Exception => e
     puts e.inspect
+    puts e.message
+    puts e.backtrace
   end
   
   sleep 60

@@ -6,6 +6,11 @@ describe 'Parser' do
       p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "parsethis.html"))
       p.rows[7].inspect.should == '["254", "5", "F2", "JÖR", "206", "statt Do. 2. Std", "M", "08c"]'
     end
+    
+    it 'ignores the MOTD' do
+      p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "motd.html"))
+      p.rows.length.should == 1
+    end
   end
   
   describe '#row_to_params' do
@@ -49,6 +54,11 @@ describe 'Parser' do
       p.changes.last.detail.should == nil
       p.changes.last.klasse.should == "K2-4Sp2"
       p.changes.last.num.should == 217
+    end
+    
+    it 'does not choke on empty klass field' do
+      p = Fichte::Parser.new File.read(File.join(File.dirname(__FILE__), "fixtures", "empty_klasse.html"))
+      p.changes.length.should == 0
     end
   end
 end
