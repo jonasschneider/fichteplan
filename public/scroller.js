@@ -33,4 +33,4 @@ function start() {
     scroll_interval = window.setInterval(scroll, 2)
 }
 
-window.setTimeout(start, 10000)
+//window.setTimeout(start, 10000)
