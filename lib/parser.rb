@@ -1,6 +1,8 @@
-require 'nokogiri'
 require 'fichte'
 require 'change'
+
+require 'nokogiri'
+require 'date'
 
 class Fichte::Parser
   def initialize data = ''
@@ -51,7 +53,7 @@ class Fichte::Parser
   end
   
   def date
-    @doc.css(".mon_title").first.text.split(" ").first
+    Date.parse(@doc.css(".mon_title").first.text.split(" ").first)
   end
   
   def next_page_name

@@ -4,6 +4,7 @@ Bundler.require :default
 require 'change'
 require 'parser'
 require 'fetcher'
+require 'date'
 
 Thread.new do
   %x(ruby fetcher.rb)
@@ -15,6 +16,8 @@ $KCODE = 'u' if RUBY_VERSION < '1.9'
 before do
   content_type :html, 'charset' => 'utf-8'
 end
+
+Date::DAYNAMES = %w(Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag)
 
 helpers do
   include Rack::Utils
@@ -37,7 +40,7 @@ helpers do
       @changes.select! { |c| filter.include?(c.klasse) || filter.include?(c.base_klasse) }
     end
     
-    @changes = @changes.sort_by {|c| [-c.date.to_i, c.stunde]}
+    @changes = @changes.sort_by {|c| [-c.date.to_time.to_i, c.stunde]}
     
     @last_updated = Time.at(settings.cache.get 'changes_lastupdate').getlocal("+02:00")
   end

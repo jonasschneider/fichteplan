@@ -20,8 +20,11 @@ class Fichte::Fetcher
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       http.open_timeout = 10
       http.read_timeout = 15
-
+      
       request = Net::HTTP::Get.new(url.path)
+      
+      request.add_field("User-Agent", "http://fichteplan.herokuapp.com - Vertretungsplan-Spider von Jonas Schneider")
+      
       response = http.request(request)
       
       p = Fichte::Parser.new response.body
