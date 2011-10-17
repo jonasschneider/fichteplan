@@ -1,5 +1,5 @@
-%script{ :src => "http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js" }
 %script{ :src => "scroller.js" }
+
 - @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
   %h1== Vertretungsplan #{date}
   - changes_for_day.group_by{|c|c.klasse}.sort.each do |klasse, changes_for_klasse|

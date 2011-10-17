@@ -2,7 +2,11 @@
   %head
     %title Vertretungsplan
     %link{:rel => 'stylesheet', 'href' => 'stylesheets/screen.css', 'media' => 'screen'}
+    %link{:rel => 'stylesheet', 'href' => 'tipsy.css', 'media' => 'screen'}
     %link{ :rel => 'alternate', :title => "RSS#{params[:filter] ? " gefiltert nach #{params[:filter]}" : ""}", :href => "/changes.rss#{params[:filter] ? "?filter=#{params[:filter]}" : ""}", :type => 'application/rss+xml' }
+    
+    %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" }
+    %script{ :src => "/jquery.tipsy.js" }
   %body
     #container
       #meta
@@ -11,7 +15,12 @@
         - if params[:filter]
           %strong== gefiltert nach #{params[:filter]}
           —
-        %a{ :href => '/help' } Hilfe!
+        %a{ :id => 'help', :href => '/help', :title => "Ja, hier könnten wichtige Sachen stehen!" } Hilfe / Filtereinstellungen
+        %script
+          $(function() {
+          $("#help").tipsy({gravity: 'w'}).mouseover();
+          })
+          
       = yield
       %p
         %em Prototyp von Jonas Schneider, 2011
