@@ -7,6 +7,7 @@
     
     %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" }
     %script{ :src => "/jquery.tipsy.js" }
+    %script{ :src => "/jquery.cookie.js" }
   %body
     #container
       #meta
@@ -16,10 +17,6 @@
           %strong== gefiltert nach #{params[:filter]}
           —
         %a{ :id => 'help', :href => '/help', :title => "Ja, hier könnten wichtige Sachen stehen!" } Hilfe / Filtereinstellungen
-        %script
-          $(function() {
-          $("#help").tipsy({gravity: 'w'}).mouseover();
-          })
           
       = yield
       %p

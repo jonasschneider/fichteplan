@@ -1,5 +1,12 @@
 %script{ :src => "scroller.js" }
 
+%script
+  $(function() {
+  if($.cookie('notice') != 1) {
+  $("#help").tipsy({gravity: 'w'}).mouseover();
+  $.cookie('notice', '1');
+  }})
+          
 - @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
   %h1== Vertretungsplan #{date}
   - changes_for_day.group_by{|c|c.klasse}.sort.each do |klasse, changes_for_klasse|
