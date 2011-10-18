@@ -1,9 +1,0 @@
-<!--
-body {position: relative; background: maroon; margin: 0; padding: 0;font-family:verdana, sans-serif;}
-div#laufband {position: absolute; top: 5px; left: 3px;
-              color: white;font: 1.0em, Verdana, sans-serif; padding: 10px;}
-.borderwhite{border-width:2px;border-style:solid;border-left-color:#444;border-top-color:#444;border-right-color:#444;border-bottom-color:#444;}
-.bottomwhite{border-width:2px;border-style:solid;border-bottom-color:white;border-top-color:#003366;border-right-color:#003366;border-left-color:#003366}
-span#temp {visibility:hidden;position:absolute;top:-100;left:-1000}
-p.western { font: 20pt,"verdana", sans-serif, white; so-language: de-DE; font-weight: medium }
--->
