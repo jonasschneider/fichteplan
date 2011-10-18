@@ -11,7 +11,7 @@ xml.rss :version => "2.0" do
       xml.item do
         xml.title "#{change.date} (#{change.klasse}): #{change.text}"
         xml.link "http://fichteplan.heroku.com"
-        xml.pubDate DateTime.parse(change.date)
+        xml.pubDate change.date
         xml.guid change.num
       end
     end
