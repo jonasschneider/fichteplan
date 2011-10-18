@@ -3,7 +3,7 @@
 %script
   $(function() {
   if($.cookie('notice') != 1) {
-  $("#help").tipsy({gravity: 'w'}).mouseover();
+  $("#help").tipsy({gravity: 'n'}).mouseover();
   $.cookie('notice', '1');
   }})
           

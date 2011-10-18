@@ -10,12 +10,12 @@
     %li <strong>Wenn du in der Kursstufe bist,</strong> schreib entweder <strong>K1</strong> oder <strong>K2</strong> (für Faule), oder:
     %li schreib deine Kurse so aus: <strong>K2-2Inf2,K2-4Bi2</strong> (Kx-Kursname, hier Info und Bio)
 
-%hr
-
 %p
   %form{ :action => '/' }
-    %input{ :name => 'filter', :placeholder => 'Hier Klasse eingeben' }
+    %input{ :name => 'filter', :placeholder => 'Hier Klasse oder Kurse eingeben', :size => 40 }
     %input{ :type => :submit, :value => 'Anzeigen' }
+
+%p Nachdem du auf "Anzeigen" klickst, siehst du nur noch die eingegebenen Klassen bzw. Kurse. Du kannst dir dann zum Beispiel ein <strong>Lesezeichen setzen</strong>, so dass du nicht jedes mal alles von vorn eingeben musst.
 
 %hr
 
