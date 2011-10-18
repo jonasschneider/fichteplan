@@ -70,4 +70,27 @@ describe 'Change' do
       c.to_json.should == '{"num":1}'
     end
   end
+  
+  describe '#matches_filter?' do
+    it 'returns false when no match' do
+      c = Fichte::Change.new :klasse => "08c"
+      c.matches_filter?(%w(09c)).should == false
+    end
+    
+    it 'returns true on exact match' do
+      c = Fichte::Change.new :klasse => "08c"
+      c.matches_filter?(%w(08c)).should == true
+    end
+    
+    it 'returns true on kurs match' do
+      c = Fichte::Change.new :klasse => "K2", :altes_fach => "4Et2"
+      c.matches_filter?(%w(K2)).should == true
+      c.matches_filter?(%w(K2-4Et2)).should == true
+    end
+    
+    it 'returns true on kurs match regardless of third character' do
+      c = Fichte::Change.new :klasse => "K2", :altes_fach => "4Et2"
+      c.matches_filter?(%w(K2-4Eth2)).should == true
+    end
+  end
 end

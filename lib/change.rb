@@ -65,4 +65,17 @@ class Fichte::Change
       :fail
     end
   end
+  
+  def matches_filter? filter
+    regex = /(K\d-\d+.+)(\d+)/
+    choices = [klasse, base_klasse, Regexp.new(klasse.gsub(regex){ $1 + '.' + $2 })]
+
+    choices.any? do |choice|
+      if choice.kind_of? Regexp
+        filter.any? { |txt| choice.match(txt) }
+      else
+        filter.include? choice
+      end
+    end
+  end
 end

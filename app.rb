@@ -37,7 +37,7 @@ helpers do
     filter = params[:filter] && params[:filter].split(',')
 
     if filter
-      @changes.select! { |c| filter.include?(c.klasse) || filter.include?(c.base_klasse) }
+      @changes.select! { |c| c.matches_filter? filter }
     end
     
     @changes = @changes.sort_by {|c| [-c.date.to_time.to_i, c.stunde]}
