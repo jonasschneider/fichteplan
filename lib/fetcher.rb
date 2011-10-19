@@ -2,6 +2,8 @@ require 'fichte'
 require 'parser'
 
 class Fichte::Fetcher
+  INTERVAL = 60
+  
   def self.run!
     base = 'https://www.fichteportfolio.de/anzeige/'
     next_page = 'subst_001.htm'

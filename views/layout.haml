@@ -4,16 +4,25 @@
     %link{:rel => 'stylesheet', 'href' => 'stylesheets/screen.css', 'media' => 'screen'}
     %link{:rel => 'stylesheet', 'href' => '/tipsy.css', 'media' => 'screen'}
     %link{:rel => 'stylesheet', 'href' => '/buttons.css', 'media' => 'screen'}
+    %link{:rel => 'stylesheet', 'href' => 'http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700', 'media' => 'screen'}
+    
     %link{ :rel => 'alternate', :title => "RSS#{params[:filter] ? " gefiltert nach #{params[:filter]}" : ""}", :href => "/changes.rss#{params[:filter] ? "?filter=#{params[:filter]}" : ""}", :type => 'application/rss+xml' }
     
     %script{ :src => "https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js" }
     %script{ :src => "/jquery.tipsy.js" }
     %script{ :src => "/jquery.cookie.js" }
+    %script{ :src => "/jquery.timeago.js" }
+    %script{ :src => "/jquery.timeago.de.js" }
   %body
     #container
       #meta
+        - unless @is_up
+          %span.down Server offline
         
-        == Letztes Update: #{@last_updated.strftime("%d.%m.%Y %H:%M")}
+        Letztes Update:
+        = @last_updated.strftime("%d.%m.%Y %H:%M")
+        —
+        %abbr.timeago{ :title => @last_updated } &nbsp;
         %br/
         - if params[:filter]
           %strong== gefiltert nach #{params[:filter]}

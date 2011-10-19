@@ -1,5 +1,6 @@
 body
-  :font-family Trebuchet MS
+  :font-family 'Open Sans'
+  :font-size 100%
 
 #container
   :width 800px
@@ -26,13 +27,24 @@ hr
   border-top: 1px solid #aaa
   margin: 30px 100px
 
+.down
+  :text-transform uppercase
+  :color white
+  :background red
+  :font-size 70%
+  :font-style normal
+  :padding 4px
+  :border-radius 3px
+
 
 .changes
   :background-color #ddd
   :padding 20px
   :margin 25px 0
   
-  :-moz-border-radius 10px
+  :-moz-border-radius 5px
+  :-webkit-border-radius 5px
+  :border-radius 5px
   
   h2
     :font-size 25px
@@ -44,12 +56,12 @@ hr
     :display block
     :margin-top 10px
     :font-size 20px
-    :font-weight bold
+    :font-weight normal
     
     :-moz-border-radius 5px
     
     &:before 
-      :content "-"
+      :content "—"
     .info
       :color #000
       :background-color #ccc

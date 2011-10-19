@@ -57,6 +57,7 @@ end
 
 before do
   load_changes!
+  @is_up = (Time.now - @last_updated) / Fichte::Fetcher::INTERVAL < 5
 end
 
 get '/' do
