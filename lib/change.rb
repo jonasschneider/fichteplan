@@ -4,6 +4,39 @@ require 'json'
 class Fichte::Change
   attr_accessor :num, :stunde, :altes_fach, :neues_fach, :vertreter, :raum, :klasse, :detail, :date
   
+  FACH_MAP = {
+    "D" => "Deutsch",
+    "M" => "Mathe",
+    
+    "E1" => "Englisch",
+    "E2" => "Englisch",
+    "F1" => "Französisch",
+    "F2" => "Französisch",
+    "Fbil" => "Französisch (bili)",
+    "Sp" => "Spanisch",
+    
+    "Ph" => "Physik",
+    "Ch" => "Chemie",
+    "BIO" => "Biologie",
+    
+    "Ge" => "Geschichte",
+    "Gk" => "Gemeinschaftskunde",
+    "GkBili" => "Geschichte (bili)",
+    "MU" => "Musik",
+    "S" => "Sport",
+    "SW" => "Sport (Mädchen)",
+    "SM" => "Sport (Jungs)",
+    "Ek" => "Erdkunde",
+    "EkBili" => "Erdkunde (bili)",
+    "BK" => "Kunst",
+    
+    "eR" => "Religion (ev.)",
+    "kR" => "Religion (kath.)",
+    "Eth" => "Ethik",
+    
+    "Kl" => "Klassenlehrerstunde"
+  }
+  
   def initialize params
     params.each do |k, v|
       send "#{k}=", v
@@ -40,6 +73,14 @@ class Fichte::Change
     else
       @klasse.gsub /[\(\)]/, ''
     end
+  end
+  
+  def altes_fach
+    FACH_MAP[@altes_fach] || @altes_fach
+  end
+  
+  def neues_fach
+    FACH_MAP[@neues_fach] || @neues_fach
   end
   
   def text

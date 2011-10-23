@@ -1,3 +1,4 @@
+require File.expand_path('spec_helper', File.dirname(__FILE__))
 require 'change'
 
 describe 'Change' do
@@ -44,7 +45,7 @@ describe 'Change' do
     it 'works' do
       c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => nil, :raum => nil, :vertreter => nil, :klasse => '05c'
       c.type.should == :entfall
-      c.text.should == "4. Stunde (E2) entfällt"
+      c.text.should == "4. Stunde (Englisch) entfällt"
     end
   end
   
@@ -52,7 +53,7 @@ describe 'Change' do
     it 'works' do
       c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => 'E2', :raum => '106', :vertreter => 'WTH', :klasse => '05c'
       c.type.should == :vertretung
-      c.text.should == "4. Stunde (E2) bei WTH in Raum 106"
+      c.text.should == "4. Stunde (Englisch) bei WTH in Raum 106"
     end
   end
   
@@ -60,7 +61,7 @@ describe 'Change' do
     it 'works' do
       c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => 'D', :raum => '106', :vertreter => 'WTH', :klasse => '05c'
       c.type.should == :tausch
-      c.text.should == "4. Stunde (E2) getauscht mit D bei WTH in Raum 106"
+      c.text.should == "4. Stunde (Englisch) getauscht mit Deutsch bei WTH in Raum 106"
     end
   end
   
