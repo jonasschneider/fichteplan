@@ -20,8 +20,9 @@ class Fichte::Change
     "BIO" => "Biologie",
     
     "Ge" => "Geschichte",
+    "GeBili" => "Geschichte (bili)",
     "Gk" => "Gemeinschaftskunde",
-    "GkBili" => "Geschichte (bili)",
+    "GkBili" => "Gemeinschaftskunde (bili)",
     "MU" => "Musik",
     "S" => "Sport",
     "SW" => "Sport (Mädchen)",
