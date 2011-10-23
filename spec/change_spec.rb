@@ -52,7 +52,7 @@ describe 'Change' do
     it 'works' do
       c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => 'E2', :raum => '106', :vertreter => 'WTH', :klasse => '05c'
       c.type.should == :vertretung
-      c.text.should == "4. Stunde (E2) vertreten durch WTH in Raum 106"
+      c.text.should == "4. Stunde (E2) bei WTH in Raum 106"
     end
   end
   

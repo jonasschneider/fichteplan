@@ -47,7 +47,7 @@ class Fichte::Change
       when :entfall
         "entfällt"
       when :vertretung
-         "vertreten durch #{vertreter} in Raum #{raum}"
+         "bei #{vertreter} in Raum #{raum}"
       when :tausch
          "getauscht mit #{neues_fach} bei #{vertreter} in Raum #{raum}"
       end
