@@ -84,14 +84,16 @@ class Fichte::Change
     FACH_MAP[@neues_fach] || @neues_fach
   end
   
-  def text
+  def text &block
+    formatter = block_given? ? block : Proc.new { |x| x }
+    
     action = case type
       when :entfall
-        "entfällt"
+        formatter.call "entfällt"
       when :vertretung
-         "bei #{vertreter} in Raum #{raum}"
+         "#{formatter.call("bei "+vertreter)} in Raum #{raum}"
       when :tausch
-         "getauscht mit #{neues_fach} bei #{vertreter} in Raum #{raum}"
+         "getauscht mit #{formatter.call neues_fach} bei #{formatter.call vertreter} in Raum #{raum}"
       end
     "#{stunde} Stunde #{!kursstufe? ? "(#{altes_fach}) " : ""}#{action}#{detail && " - #{detail}"}"
   end

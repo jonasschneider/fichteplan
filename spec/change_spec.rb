@@ -41,6 +41,17 @@ describe 'Change' do
     end
   end
   
+  describe '#text' do
+    it "accepts a formatter argument" do
+      c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => nil, :raum => nil, :vertreter => nil, :klasse => '05c'
+      res = c.text do |data|
+        "<#{data}>"
+      end
+      
+      res.should == "4. Stunde (Englisch) <entfällt>"
+    end
+  end
+  
   describe 'entfallene Stunde' do
     it 'works' do
       c= Fichte::Change.new :num => 1, :stunde => 4, :altes_fach => 'E2', :neues_fach => nil, :raum => nil, :vertreter => nil, :klasse => '05c'
