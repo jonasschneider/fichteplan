@@ -1,0 +1,3 @@
+
+ENV["FICHTE_AUTH_DATA"] = "user:password"
+=> lib/fetcher.rb

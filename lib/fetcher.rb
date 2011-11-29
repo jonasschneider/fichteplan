@@ -25,11 +25,13 @@ class Fichte::Fetcher
       
       request = Net::HTTP::Get.new(url.path)
       
+      request.basic_auth *ENV["FICHTE_AUTH_DATA"].split(":")
+      
       request.add_field("User-Agent", "http://fichteplan.herokuapp.com - Vertretungsplan-Spider von Jonas Schneider")
       
       response = http.request(request)
       
-      raise "response code #{response.code} while fetching #{request.path}" unless response.code == 200
+      raise "response code #{response.code} while fetching #{request.path}" unless response.code.to_i == 200
       
       p = Fichte::Parser.new response.body
       
