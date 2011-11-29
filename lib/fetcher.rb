@@ -29,6 +29,8 @@ class Fichte::Fetcher
       
       response = http.request(request)
       
+      raise "response code #{response.code} while fetching #{request.path}" unless response.code == 200
+      
       p = Fichte::Parser.new response.body
       
       next_page = p.next_page_name unless done.include? p.next_page_name
