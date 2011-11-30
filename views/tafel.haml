@@ -1,0 +1,15 @@
+#meta
+  - unless @is_up
+    %span.down Server offline
+  
+  Letztes Update:
+  = @last_updated.strftime("%d.%m.%Y %H:%M")
+  —
+  %abbr.timeago{ :title => @last_updated } &nbsp;
+
+%style
+  * { color: maroon !important }
+
+%script{ :src => "scroller.js" }
+
+= partial :changelist

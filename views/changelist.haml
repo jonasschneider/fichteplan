@@ -1,5 +1,11 @@
-- changes.each do |change|
-  %li
-    %span.text
-      = change.text do |x|
-        - "<strong>#{x}</strong>"
+- @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
+  %h1== Vertretungsplan #{date.strftime("%d.%m. (%A)")}
+  - changes_for_day.group_by{|c|c.klasse}.sort.each do |klasse, changes_for_klasse|
+    .changes
+      %h2= klasse
+      %ul
+        - changes_for_klasse.each do |change|
+          %li
+            %span.text
+              = change.text do |x|
+                - "<strong>#{x}</strong>"

@@ -64,6 +64,10 @@ get '/' do
   haml view("index"), :layout => view("layout")
 end
 
+get '/tafel' do
+  haml view("tafel"), :layout => view("layout")
+end
+
 get '/changes.json' do
   @changes.to_json
 end

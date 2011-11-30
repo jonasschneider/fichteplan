@@ -15,20 +15,6 @@
     %script{ :src => "/jquery.timeago.de.js" }
   %body
     #container
-      #meta
-        - unless @is_up
-          %span.down Server offline
-        
-        Letztes Update:
-        = @last_updated.strftime("%d.%m.%Y %H:%M")
-        —
-        %abbr.timeago{ :title => @last_updated } &nbsp;
-        %br/
-        - if params[:filter]
-          %strong== gefiltert nach #{params[:filter]}
-          —
-        %a.cupid-green{ :id => 'help', :href => '/help', :title => "Ja, hier könnten wichtige Sachen stehen!" } Hilfe & Filtereinstellungen
-          
       = yield
       %p
         %em Prototyp von Jonas Schneider, 2011
