@@ -64,6 +64,10 @@ get '/' do
   haml view("index"), :layout => view("layout")
 end
 
+get '/lehrer' do
+  haml view("lehrer"), :layout => view("layout")
+end
+
 get '/tafel' do
   haml view("tafel"), :layout => view("layout")
 end

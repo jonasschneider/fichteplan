@@ -1,0 +1,25 @@
+#meta
+  - unless @is_up
+    %span.down Server offline
+  
+  Letztes Update:
+  = @last_updated.strftime("%d.%m.%Y %H:%M")
+  —
+  %abbr.timeago{ :title => @last_updated } &nbsp;
+  %br/
+  - if params[:filter]
+    %strong== gefiltert nach #{params[:filter]}
+
+- @changes.group_by{|c|c.date}.sort.each do |date, changes_for_day|
+  %h1== Lehrer-Vertretungsplan #{date.strftime("%d.%m. (%A)")}
+  - changes_for_day.group_by{|c|c.vertreter}.each do |lehrer, changes_for_lehrer|
+    .changes
+      %h2= lehrer
+      %ul
+        - changes_for_lehrer.each do |change|
+          %li
+            %span.text
+              %em= change.klasse
+              
+              = change.text do |x|
+                - "<strong>#{x}</strong>"
