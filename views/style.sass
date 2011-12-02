@@ -1,3 +1,4 @@
+$base: #6B1B1B
 body
   :font-family 'Open Sans'
   :font-size 90%
@@ -8,36 +9,54 @@ body
   :clear both
 
 #meta
-  margin-bottom: 50px
+  margin: 20px 0 50px
   text-align: right
-  color: #444
+  color: lighten($base, 50%)
   font-style: italic
+  
+  .down
+    :text-transform uppercase
+    :color white
+    :background lighten($base, 20%)
+    :font-size 70%
+    :font-style normal
+    :padding 4px
+    :border-radius 3px
 
 a
   font-weight: bold
   text-decoration: underline
   margin: 0 4px
+  color: saturate(lighten($base, 35%), 10%)
+  
+  &.big-button
+    background: desaturate(lighten($base, 10%), 10%)
+    border-radius: 5px
+    padding: 10px
+    display: inline-block
+    margin: 10px
 
 p
   :clear both
+
+body
+  
+  background: $base
+  color: white
+
+
+h1
+  text-shadow: 0 0 3px lighten($base, 60%)
 
 hr
   border: 0
   border-top: 1px solid #aaa
   margin: 30px 100px
 
-.down
-  :text-transform uppercase
-  :color white
-  :background red
-  :font-size 70%
-  :font-style normal
-  :padding 4px
-  :border-radius 3px
 
 
 .changes
-  :background-color #ddd
+  background: desaturate(lighten($base, 10%), 15%)
   :padding 20px
   :margin 25px 0
   
@@ -46,11 +65,12 @@ hr
   :border-radius 5px
   
   h2
-    :font-size 110%
+    :font-size 130%
+    text-shadow: 0 0 3px lighten($base, 60%)
     :margin 0
   
   li
-    :background-color #bbb
+    background: desaturate(lighten($base, 15%), 20%)
     :padding 7px
     :display block
     :margin-top 10px
